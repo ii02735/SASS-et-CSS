@@ -1,0 +1,64 @@
+SASS permet l'écriture d'un fichier CSS en utilisant des variables et d'autres propriétés se rapprochant
+d'un langage de programmation : on peut utiliser des fonctions, des conditions, des boucles, etc.
+
+Un fichier écrit en SASS porte l'extension .scss et n'est PAS interprétable depuis le web comme un fichier CSS.
+Il est nécessaire de compiler le fichier .scss à l'aide de l'outil sass fourni par gem.
+
+Instructions de compilation SOUS WINDOWS :
+
+- Se rendre dans le dossier css et créer un fichier .scss
+- Écrire du contenu :
+
+Pour créer une variable : $mavariable:red;
+La variable a une valeur "red"
+Pour l'assigner à une instruction de style :
+
+body{ background:$mavariable };
+Il est aussi possible de créer des fonctions, on appelle cela des mixins :
+
+@mixin mafonction(arg1,arg2){ font-weight:arg1; font-size:arg2; }
+
+On l'invoque dans notre body par exemple :
+
+body{
+	background:$mavariable;
+	@import mafonction(bold,13px);
+}
+
+- Depuis le cmd, se rendre dans le dossier de style, et exécuter la commande "sass style.css --watch"
+
+Attention : sass doit être exécuté depuis son vrai chemin, "..\rubyinstaller-2.5.0-1-x86\bin\sass"
+Pour plus de confort, l'inclure temporairement dans le PATH :
+set PATH=%PATH%,.\rubyinstaller-2.5.0-1-x86\bin\sass (le faire de préférence depuis la racine)
+
+L'instruction --watch permet d'auto compiler un fichier style.css après chaque modification.
+Ainsi dans le dossier css, on aura un fichier style.css (si on a appelé notre fichier .scss "style" aussi).
+Donc si on a écrit dans le fichier scss :
+
+body{
+	background:$mavariable;
+	@import mafonction(bold,13px);
+}
+
+Il sera traduit dans style.css comme ceci : 
+
+body{
+	background:red;
+	font-weight:bold;
+	font-size:13px;
+}
+
+Il n'est pas nécessaire d'exécuter à chaque modification sass --watch : il suffit d'enregistrer le fichier
+.scss pour que le fichier .css soit mis à jour.
+
+SOUS linux (debian-ubuntu) :
+
+1) Exécuter les commandes : 
+   - sudo apt install ruby-dev
+   - sudo gem install sass
+2) Se rendre dans le dossier de style puis puis comme d'habitude (créer un fichier .scss)
+3) Exécuter directement la commande : sass <fichier>.css --watch
+(Ne pas se préoccuper du dossier rubyinstaller car sous linux l'installation se fait directement depuis le PATH
+L'implémentation sous Windows est plus longue, mais elle permet d'utiliser sass en portable, sans passer
+par le système, donc par les droits d'admin)
+
